@@ -144,6 +144,15 @@ describe('Thermostat', function(){
 
       });
 
+      it ("reduces temperature to 25 if the power saving mode turn on from false", function(){
+
+        thermostat.powerSavingSwitch()
+        thermostat.temperature = 28
+        thermostat.powerSavingSwitch()
+        expect(thermostat.temperature).toEqual(25);
+
+      });
+
     });
 
 });
