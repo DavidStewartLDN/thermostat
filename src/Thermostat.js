@@ -41,3 +41,13 @@ Thermostat.prototype.energyUsage = function() {
   }
   
 }
+
+Thermostat.prototype.powerSavingSwitch = function() {
+
+  if(this.powerSavingMode === true) {
+    this.powerSavingMode = false
+  } else {
+    this.powerSavingMode = true
+  }
+
+}

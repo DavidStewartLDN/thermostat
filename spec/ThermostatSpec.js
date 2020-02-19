@@ -127,4 +127,23 @@ describe('Thermostat', function(){
 
     });
 
+    describe('#powerSavingSwitch', function(){
+
+      it ("returns false when pressed from default", function(){
+
+        thermostat.powerSavingSwitch()
+        expect(thermostat.powerSavingMode).toEqual(false);
+
+      });
+
+      it ("returns true when pressed twice from default true", function(){
+
+        thermostat.powerSavingSwitch()
+        thermostat.powerSavingSwitch()
+        expect(thermostat.powerSavingMode).toEqual(true);
+
+      });
+
+    });
+
 });
