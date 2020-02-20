@@ -2,9 +2,22 @@
 <html>
   <head>
       <meta charset="utf-8">
-      <h1>Thermostat </h1>
+      <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <section>
+      <h1>Thermostat </h1>
+      <h1 id="temperature"></h1>
+      <p>
+        <h1 id="temperature"></h1> <h1 id="mode"></h1>
+        <h1>Current Outside Temperature: <span id="current-outside-temperature"></span></h1>
+        <button id="temperature-up1">+</button>
+        <button id="temperature-down1">-</button>
+        <button id="temperature-reset">Reset</button>
+        power saving mode is <span id="power-saving-status">on</span>
+        <button id="powersaving-switch">PSM Switch</button>
+      </p>
+    </section>
     <script src="jquery.js"></script>
     <script src="src/thermostat.js"></script>
     <script>
@@ -12,6 +25,9 @@
         var thermostat = new Thermostat;
         updateTemperature();
         updateMode();
+        $.get('http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=285828e02b448c9f8789b7fca2cf7c74&units=metric', function(data) {
+          $('#current-outside-temperature').text(data.main.temp);
+          })
         $("#temperature-up1").on("click", function(){ // event listener
           thermostat.up() // update model
           updateTemperature(); // update view
@@ -32,6 +48,7 @@
 
         function updateTemperature() {
           $("#temperature").text(thermostat.temperature);
+          $("#temperature").attr('class', thermostat.energyUsage());
         }
         function updateMode() {
           var status;
@@ -44,16 +61,5 @@
         }
       });
     </script>
-    <section>
-      <h1 id="temperature"></h1>
-      <p>
-        <h1 id="temperature"></h1> <h1 id="mode"></h1>
-        <button id="temperature-up1">+</button>
-        <button id="temperature-down1">-</button>
-        <button id="temperature-reset">Reset</button>
-        power saving mode is <span id="power-saving-status">on</span>
-        <button id="powersaving-switch">PSM Switch</button>
-      </p>
-    </section>
   </body>
 </html>
