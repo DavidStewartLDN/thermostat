@@ -17,7 +17,6 @@
         power saving mode is <span id="power-saving-status">on</span>
         <button id="powersaving-switch">PSM Switch</button>
         <select id="current-city">
-          <option selected="selected"> </option>
           <option value="london">London</option>
           <option value="paris">Paris</option>
           <option value="tokyo">Tokyo</option>
@@ -26,51 +25,6 @@
     </section>
     <script src="jquery.js"></script>
     <script src="src/thermostat.js"></script>
-    <script>
-      $(document).ready(function(){
-        var thermostat = new Thermostat;
-        updateTemperature();
-        updateMode();
-
-        $('#current-city').change(function() {
-          var city = $('#current-city').val();
-          $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=285828e02b448c9f8789b7fca2cf7c74&units=metric', function(data) {
-            $('#current-outside-temperature').text(data.main.temp);
-          })
-        })
-
-        $("#temperature-up1").on("click", function(){ // event listener
-          thermostat.up() // update model
-          updateTemperature(); // update view
-        })
-        $("#temperature-down1").on("click", function(){
-          thermostat.down()
-          updateTemperature(); // update view
-        })
-        $("#temperature-reset").on("click", function(){
-          thermostat.reset()
-          updateTemperature(); // update view
-        })
-        $("#powersaving-switch").on("click", function(){ // event listener
-          thermostat.powerSavingSwitch() // update model
-          updateTemperature(); // update view
-          updateMode();
-        })
-
-        function updateTemperature() {
-          $("#temperature").text(thermostat.temperature);
-          $("#temperature").attr('class', thermostat.energyUsage());
-        }
-        function updateMode() {
-          var status;
-          if (thermostat.powerSavingMode === true) {
-            status = "On"
-          } else {
-            status = "Off"
-          }
-          $("#mode").text("Power Saving Mode: " + status)
-        }
-      });
-    </script>
+    <script src="interface.js"></script>
   </body>
 </html>
